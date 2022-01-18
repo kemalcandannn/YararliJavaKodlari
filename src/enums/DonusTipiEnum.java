@@ -1,14 +1,20 @@
 package enums;
 
-public enum BuyukKucukHarfEnum {
-	KUCUK (1, "KUCUK"), 
-	OLDUGU_GIBI (2, "OLDUGU GIBI"),
-	BUYUK (3, "BUYUK");
+public enum DonusTipiEnum {
+	BOOLEAN (1, "BOOLEAN"), 
+	CHAR (2, "CHAR"), 
+	BYTE (3, "BYTE"), 
+	SHORT (4, "SHORT"), 
+	INTEGER (5, "INTEGER"), 
+	LONG (6, "LONG"), 
+	FLOAT (7, "FLOAT"), 
+	DOUBLE (8, "DOUBLE"), 
+	STRING (9, "STRING");
 
 	private final int value;
 	private final String label;
 
-	BuyukKucukHarfEnum(int value, String label) {
+	DonusTipiEnum(int value, String label) {
 		this.value = value;
 		this.label = label;
 	}
@@ -24,7 +30,7 @@ public enum BuyukKucukHarfEnum {
 	public static String getLabel(int val) {
 		String label = "";
 
-		for (BuyukKucukHarfEnum buyukKucukHarfEnum : BuyukKucukHarfEnum.values()) {
+		for (DonusTipiEnum buyukKucukHarfEnum : DonusTipiEnum.values()) {
 			if (buyukKucukHarfEnum.getValue() == val) {
 				label = buyukKucukHarfEnum.getLabel();
 				break;

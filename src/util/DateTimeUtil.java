@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+import enums.DonusTipiEnum;
+
 public class DateTimeUtil {
 
 	public static Date getDateClass(String tarih) {
@@ -189,4 +191,76 @@ public class DateTimeUtil {
 	    }
 	}
 
+	public static Time rastgeleSaatUret() {
+		Time rastgeleSaat = null;
+		
+		while(true) {
+			try {
+				int saatTmp = (Integer) Util.rastgeleSayiUret(0, 23, DonusTipiEnum.INTEGER);
+				int dakikaTmp = (Integer) Util.rastgeleSayiUret(0, 59, DonusTipiEnum.INTEGER);
+				int saniyeTmp = (Integer) Util.rastgeleSayiUret(0, 59, DonusTipiEnum.INTEGER);
+
+				String saat = saatTmp < 10 ? "0" + saatTmp : saatTmp + "";
+				String dakika = dakikaTmp < 10 ? "0" + dakikaTmp : saatTmp + "";
+				String saniye = saniyeTmp < 10 ? "0" + saniyeTmp : saatTmp + "";
+
+				rastgeleSaat = Time.valueOf(saat + ":" + dakika + ":" + saniye);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			if(rastgeleSaat != null) {
+				break;
+			}
+		}
+		
+		return rastgeleSaat;
+	}
+
+	public static Date rastgeleTarihUret() {
+		Calendar calendar = Calendar.getInstance();
+		return rastgeleTarihUret(1900, calendar.get(Calendar.YEAR));
+	}
+
+	public static Date rastgeleGunumuzdenOnceTarihUret() {
+		Calendar calendar = Calendar.getInstance();
+		return rastgeleTarihUret(0, calendar.get(Calendar.YEAR));
+	}
+
+	public static Date rastgeleGunumuzdenSonraTarihUret() {
+		Calendar calendar = Calendar.getInstance();
+		return rastgeleTarihUret(calendar.get(Calendar.YEAR), 2100);
+	}
+
+	public static Date rastgeleTarihUret(int baslangicYili, int bitisYili) {
+		Date rastgeleTarih = null;
+
+		while(true) {
+			try {
+				Calendar calendar = Calendar.getInstance();
+				
+				int yil = (Integer) Util.rastgeleSayiUret(baslangicYili, bitisYili, DonusTipiEnum.INTEGER);
+				int ay = (Integer) Util.rastgeleSayiUret(0, 12, DonusTipiEnum.INTEGER);
+				int gun = (Integer) Util.rastgeleSayiUret(0, 31, DonusTipiEnum.INTEGER);
+				int saat = (Integer) Util.rastgeleSayiUret(0, 23, DonusTipiEnum.INTEGER);
+				int dakika = (Integer) Util.rastgeleSayiUret(0, 59, DonusTipiEnum.INTEGER);
+				int saniye = (Integer) Util.rastgeleSayiUret(0, 59, DonusTipiEnum.INTEGER);
+
+				calendar.set(Calendar.YEAR, yil);
+				calendar.set(Calendar.MONTH, ay);
+				calendar.set(Calendar.DAY_OF_MONTH, gun);
+				calendar.set(Calendar.HOUR_OF_DAY, saat);
+				calendar.set(Calendar.MINUTE, dakika);
+				calendar.set(Calendar.SECOND, saniye);
+				rastgeleTarih = calendar.getTime();
+			} catch (Exception e) {}
+			
+			if(rastgeleTarih != null) {
+				break;
+			}
+		}
+		
+		return rastgeleTarih;
+	}
+	
 }

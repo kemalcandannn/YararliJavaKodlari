@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import enums.DonusTipiEnum;
 import util.PasswordGenerator.PasswordGeneratorBuilder;
 public class Util{
 	
@@ -57,8 +59,20 @@ public class Util{
   
         return m.matches();
 	}
-	
-	public static String randomName(int uzunluk) {
+
+	public static Object rastgeleSayiUret(float min, float max, DonusTipiEnum donusTipi) {
+		float range = max - min + 1;
+		
+		if(donusTipi.equals(DonusTipiEnum.SHORT) || donusTipi.equals(DonusTipiEnum.INTEGER) || donusTipi.equals(DonusTipiEnum.LONG)) {
+			return (int) ((Math.random() * range) + min);
+		} else if(donusTipi.equals(DonusTipiEnum.FLOAT) || donusTipi.equals(DonusTipiEnum.DOUBLE)) {
+			return (float) ((Math.random() * range) + min);
+		} else {
+			return String.valueOf((Math.random() * range) + min);
+		}
+	}
+
+	public static String rastgeleIsimUret(int uzunluk) {
 		PasswordGenerator pg = new PasswordGenerator(new PasswordGeneratorBuilder().
 				useDigits(true).
 				useUpper(true).
